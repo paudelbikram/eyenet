@@ -1,0 +1,5 @@
+https://pjreddie.com/projects/mnist-in-csv/
+
+iter-0 = raw data downloaded 
+iter-1 = normalized y to be a matrix instead of a lable value 
+iter-0 = normalized x to be between 0 and 1 with 1 being 255

@@ -1,0 +1,23 @@
+{
+  "name": "sajilonet",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A simple neural net in JS",
+  "main": "index.js",
+  "directories": {
+    "dist": "dist",
+    "src": "src",
+    "spec": "spec"
+  },
+  "scripts": {
+    "test": "jasmine ./spec/NeuralNet-Spec.mjs",
+    "bundle": "webpack"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jasmine": "^4.5.0",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  }
+}

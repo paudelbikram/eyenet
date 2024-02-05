@@ -1,0 +1,5 @@
+[0,0,1] = Iris-virginica,
+[0,1,0] = Iris-versicolor,
+[1,0,0] = Iris-setosa
+
+Link = "https://archive.ics.uci.uci.edu/ml/datasets/iris"

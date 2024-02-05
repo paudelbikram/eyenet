@@ -1,0 +1,4 @@
+{
+    "layers":[784, 1000, 100, 10], 
+    "activationFunction":"Sigmoid"
+}
