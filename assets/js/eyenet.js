@@ -625,7 +625,7 @@ let createMatrixDataView = (matrix) => {
   for(let i = 0; i < matrix.rows; i++) {
     collector.push('<tr>');
     for(let j = 0; j < matrix.cols; j++) {
-      collector.push(`<td>${Number.parseFloat(matrix.data[i][j]).toFixed(3)}</td>`)
+      collector.push(`<td>${shortenTheNumber(matrix.data[i][j], 3)}</td>`)
     }
     collector.push('</tr>');
   }

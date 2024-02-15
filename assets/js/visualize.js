@@ -1,6 +1,6 @@
 'user strict';
 
-const dx = 180;
+const dx = 200;
 const dy = 90;
 const r = 25;
 
@@ -103,7 +103,7 @@ let createNeuralNet = (neuralnet) => {
         }
     }
 
-    svg.attr("width", nodeConfig.length * 200).attr("height", maxNodeInLayer * 110);
+    svg.attr("width", nodeConfig.length * 220).attr("height", maxNodeInLayer * 110);
 
     // Add lines from one layer to next
     svg.selectAll("line")
