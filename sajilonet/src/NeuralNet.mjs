@@ -276,22 +276,22 @@ export class NeuralNet{
         );
 
         // Fixing weights and bias
-        let weightBefore = this.weights[this.weights.length -1];
+        let weightBefore = this.weights[this.weights.length -1].deepCopy();
         this.weights[this.weights.length - 1].add(delta);
         lastLayerCalc.push(
             new BinaryOperation(
-                new OperationArgument('weight', ArgumentType.MATRIX, weightBefore.deepCopy()),
+                new OperationArgument('weight', ArgumentType.MATRIX, weightBefore),
                 MatrixOperationType.ELEMENT_WISE_ADDITION,
                 new OperationArgument('delta', ArgumentType.MATRIX, delta.deepCopy()),
                 new OperationArgument('newWeight', ArgumentType.MATRIX, this.weights[this.weights.length - 1].deepCopy())
             )
         );
 
-        let biasBefore = this.bias[this.bias.length - 1];
+        let biasBefore = this.bias[this.bias.length - 1].deepCopy();
         this.bias[this.bias.length - 1].add(gradients);
         lastLayerCalc.push(
             new BinaryOperation(
-                new OperationArgument('bias', ArgumentType.MATRIX, biasBefore.deepCopy()),
+                new OperationArgument('bias', ArgumentType.MATRIX, biasBefore),
                 MatrixOperationType.ELEMENT_WISE_ADDITION,
                 new OperationArgument('gradient', ArgumentType.MATRIX, gradients.deepCopy()),
                 new OperationArgument('newBias', ArgumentType.MATRIX, this.bias[this.bias.length - 1].deepCopy())
@@ -374,13 +374,13 @@ export class NeuralNet{
                 )
             );
 
-            let previousWeight = this.weights[i-1];
-            let previousBias = this.bias[i-1];
+            let previousWeight = this.weights[i-1].deepCopy();
+            let previousBias = this.bias[i-1].deepCopy();
 
             this.weights[i - 1].add(deltaOfPreviousLayer);
             backpropSteps.push(
                 new BinaryOperation(
-                    new OperationArgument('previousWeight', ArgumentType.MATRIX, previousWeight.deepCopy()),
+                    new OperationArgument('previousWeight', ArgumentType.MATRIX, previousWeight),
                     MatrixOperationType.ELEMENT_WISE_ADDITION,
                     new OperationArgument('delta', ArgumentType.MATRIX, deltaOfPreviousLayer.deepCopy()),
                     new OperationArgument('newWeight', ArgumentType.MATRIX, this.weights[i - 1].deepCopy())
@@ -390,7 +390,7 @@ export class NeuralNet{
             this.bias[i - 1].add(hiddenGradient);
             backpropSteps.push(
                 new BinaryOperation(
-                    new OperationArgument('previousBias', ArgumentType.MATRIX, previousBias.deepCopy()),
+                    new OperationArgument('previousBias', ArgumentType.MATRIX, previousBias),
                     MatrixOperationType.ELEMENT_WISE_ADDITION,
                     new OperationArgument('hiddenGradient', ArgumentType.MATRIX, hiddenGradient.deepCopy()),
                     new OperationArgument('newBias', ArgumentType.MATRIX, this.bias[i - 1].deepCopy())
