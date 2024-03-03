@@ -69,7 +69,8 @@ export class NeuralNet{
                     new OperationArgument('weight', ArgumentType.MATRIX, this.weights[i].deepCopy()),
                     MatrixOperationType.DOT_PRODUCT,
                     new OperationArgument('X', ArgumentType.MATRIX, initialLayer),
-                    new OperationArgument('weight_DOT_PRODUCT_X', ArgumentType.MATRIX, layerAfterWeight)
+                    new OperationArgument('weight_DOT_PRODUCT_X', ArgumentType.MATRIX, layerAfterWeight),
+                    "Calculating Weighted Layer : Matrix Dot Product Between Weight And Input Matrix (X)"
                 )
               );
           }
@@ -80,9 +81,10 @@ export class NeuralNet{
             predictionStat.push(
                 new BinaryOperation(
                     new OperationArgument('weightedLayer', ArgumentType.MATRIX, layerAfterWeight),
-                    MatrixOperationType.DOT_PRODUCT,
+                    MatrixOperationType.ELEMENT_WISE_ADDITION,
                     new OperationArgument('bias', ArgumentType.MATRIX, this.bias[i].deepCopy()),
-                    new OperationArgument('layerAfterBias', ArgumentType.MATRIX, layerAfterBias)
+                    new OperationArgument('layerAfterBias', ArgumentType.MATRIX, layerAfterBias),
+                    "Adding Bias To Weighted Layer : Matrix Element Wise Addition Between Weighted Layer And Bias"
                 )
               );
           }
@@ -94,7 +96,8 @@ export class NeuralNet{
                     new OperationArgument('activation', ArgumentType.FUNCTION, this.activationFunction.activate.toString()),
                     MatrixOperationType.ELEMENT_WISE_FUNCTION,
                     new OperationArgument('layerAfterBias', ArgumentType.MATRIX, layerAfterBias),
-                    new OperationArgument('Y', ArgumentType.MATRIX, layer.deepCopy())
+                    new OperationArgument('Y', ArgumentType.MATRIX, layer.deepCopy()),
+                    "Calculating Final Output : Activation Function To Each Element of Matrix (Output Of Layer After Adding Bias)"
                 )
               );
           }
@@ -167,7 +170,8 @@ export class NeuralNet{
                     new OperationArgument('weight', ArgumentType.MATRIX, this.weights[i].deepCopy()),
                     MatrixOperationType.DOT_PRODUCT,
                     new OperationArgument('X', ArgumentType.MATRIX, layerOutputs[layerOutputs.length - 1].deepCopy()),
-                    new OperationArgument('weight_DOT_PRODUCT_X', ArgumentType.MATRIX, outputAfterWeight)
+                    new OperationArgument('weight_DOT_PRODUCT_X', ArgumentType.MATRIX, outputAfterWeight),
+                    "Calculating Weighted Layer : Matrix Dot Product Between Weight And Input Matrix (X)"
                 )
             );
 
@@ -179,7 +183,8 @@ export class NeuralNet{
                     new OperationArgument('weightedInput', ArgumentType.MATRIX, outputAfterWeight),
                     MatrixOperationType.ELEMENT_WISE_ADDITION,
                     new OperationArgument('bias', ArgumentType.MATRIX, this.bias[i].deepCopy()),
-                    new OperationArgument('weightedInput_ADD_bias', ArgumentType.MATRIX, outputAfterBias)
+                    new OperationArgument('weightedInput_ADD_bias', ArgumentType.MATRIX, outputAfterBias),
+                    "Adding Bias To Weighted Layer : Matrix Element Wise Addition Between Weighted Layer And Bias"
                 )
             );
             
@@ -190,7 +195,8 @@ export class NeuralNet{
                     new OperationArgument('activation', ArgumentType.FUNCTION, this.activationFunction.activate.toString()),
                     MatrixOperationType.ELEMENT_WISE_FUNCTION,
                     new OperationArgument('inputWithBias', ArgumentType.MATRIX, outputAfterBias),
-                    new OperationArgument('activatedInput', ArgumentType.MATRIX, layerOutput.deepCopy())
+                    new OperationArgument('activatedInput', ArgumentType.MATRIX, layerOutput.deepCopy()),
+                    "Calculating Final Output : Activation Function To Each Element of Matrix (Output Of Layer After Adding Bias)"
                 )
             );
             feedforward.push([feedforwardStep]);
@@ -211,7 +217,8 @@ export class NeuralNet{
                 new OperationArgument('Y', ArgumentType.MATRIX, target.deepCopy()),
                 MatrixOperationType.ELEMENT_WISE_SUBSTRACTION,
                 new OperationArgument('calculatedY', ArgumentType.MATRIX, output.deepCopy()),
-                new OperationArgument('error', ArgumentType.MATRIX, outputErrors.deepCopy())
+                new OperationArgument('error', ArgumentType.MATRIX, outputErrors.deepCopy()),
+                "Calculating Error : Matrix Element Wise Substraction Between Labeled Output (Y) AND Calculated Output"
             )
         );
         backpropagation.push(errorCalStep);
@@ -227,7 +234,8 @@ export class NeuralNet{
                 new OperationArgument('deactivation', ArgumentType.FUNCTION, this.activationFunction.deactivate.toString()),
                 MatrixOperationType.ELEMENT_WISE_FUNCTION,
                 new OperationArgument('calculatedY', ArgumentType.MATRIX, output.deepCopy()),
-                new OperationArgument('gradient', ArgumentType.MATRIX, gradientCopy)
+                new OperationArgument('gradient', ArgumentType.MATRIX, gradientCopy),
+                "Calculating Gradient Step 1 : Deactivation Function To Each Element of Matrix (Calculated Output)"
             )
         );
 
@@ -239,7 +247,8 @@ export class NeuralNet{
                 new OperationArgument('gradient', ArgumentType.MATRIX, gradientCopy),
                 MatrixOperationType.ELEMENT_WISE_MULTIPLICATION,
                 new OperationArgument('error', ArgumentType.MATRIX, outputErrors.deepCopy()),
-                new OperationArgument('gradient_MULTIPLY_error', ArgumentType.MATRIX, gradientAfterMultiplyingWithError)
+                new OperationArgument('gradient_MULTIPLY_error', ArgumentType.MATRIX, gradientAfterMultiplyingWithError),
+                "Calculating Gradient Step 2 : Matrix Element Wise Multiplication Between Result Of Step 1 And Error"
             )
         );
 
@@ -250,7 +259,8 @@ export class NeuralNet{
                 new OperationArgument('gradientAfterError', ArgumentType.MATRIX, gradientAfterMultiplyingWithError),
                 MatrixOperationType.SCALAR_MULTIPLICATION,
                 new OperationArgument('learningRate', ArgumentType.SCALAR, learningRate),
-                new OperationArgument('gradientAfterLearningRate', ArgumentType.MATRIX, gradients.deepCopy())
+                new OperationArgument('gradientAfterLearningRate', ArgumentType.MATRIX, gradients.deepCopy()),
+                "Calculating Gradient Step 3 (Final Step) : Matrix Scalar Multiplication Between Result of Step 2 And Learning Rate"
             )
         );
 
@@ -260,7 +270,8 @@ export class NeuralNet{
             new UnaryOperation(
                 new OperationArgument('outputOfLastHiddenLayer', ArgumentType.MATRIX, layerOutputs[layerOutputs.length - 2].deepCopy()),
                 MatrixOperationType.TRANSPOSE,
-                new OperationArgument('TRANSPOSE_lastHiddenLayer', ArgumentType.MATRIX, weight.deepCopy())
+                new OperationArgument('TRANSPOSE_lastHiddenLayer', ArgumentType.MATRIX, weight.deepCopy()),
+                "Calculating Transpose Of Last Hidden Layer : Matrix Transpose Of Output Of Last Hidden Layer"
             )
         );
 
@@ -271,7 +282,8 @@ export class NeuralNet{
                 new OperationArgument('gradientAfterLearningRate', ArgumentType.MATRIX, gradients.deepCopy()),
                 MatrixOperationType.DOT_PRODUCT,
                 new OperationArgument('transposeOfLastHiddenLayer', ArgumentType.MATRIX, weight.deepCopy()),
-                new OperationArgument('delta', ArgumentType.MATRIX, delta.deepCopy())
+                new OperationArgument('delta', ArgumentType.MATRIX, delta.deepCopy()),
+                "Calculating Delta : Matrix Dot Product Between Gradient And Transpose Of Last Hidden Layer"
             )
         );
 
@@ -283,7 +295,8 @@ export class NeuralNet{
                 new OperationArgument('weight', ArgumentType.MATRIX, weightBefore),
                 MatrixOperationType.ELEMENT_WISE_ADDITION,
                 new OperationArgument('delta', ArgumentType.MATRIX, delta.deepCopy()),
-                new OperationArgument('newWeight', ArgumentType.MATRIX, this.weights[this.weights.length - 1].deepCopy())
+                new OperationArgument('newWeight', ArgumentType.MATRIX, this.weights[this.weights.length - 1].deepCopy()),
+                "Calculating New Weight : Matrix Element Wise Addition Between Current Weight And Delta"
             )
         );
 
@@ -293,8 +306,9 @@ export class NeuralNet{
             new BinaryOperation(
                 new OperationArgument('bias', ArgumentType.MATRIX, biasBefore),
                 MatrixOperationType.ELEMENT_WISE_ADDITION,
-                new OperationArgument('gradient', ArgumentType.MATRIX, gradients.deepCopy()),
-                new OperationArgument('newBias', ArgumentType.MATRIX, this.bias[this.bias.length - 1].deepCopy())
+                new OperationArgument('gradientAfterLearningRate', ArgumentType.MATRIX, gradients.deepCopy()),
+                new OperationArgument('newBias', ArgumentType.MATRIX, this.bias[this.bias.length - 1].deepCopy()),
+                "Calculating New Bias : Matrix Element Wise Addition Between Current Bias And Gradient"
             )
         );
         backpropagation.push(lastLayerCalc);
@@ -307,7 +321,8 @@ export class NeuralNet{
                 new UnaryOperation(
                     new OperationArgument('weight', ArgumentType.MATRIX, this.weights[i].deepCopy()),
                     MatrixOperationType.TRANSPOSE,
-                    new OperationArgument('transposeOfWeight', ArgumentType.MATRIX, t1.deepCopy())
+                    new OperationArgument('transposeOfWeight', ArgumentType.MATRIX, t1.deepCopy()),
+                    "Calculating Transpose Of Current Weight : Matrix Transpose Of Current Weight"
                 )
             );
 
@@ -318,7 +333,8 @@ export class NeuralNet{
                     new OperationArgument('transposeOfWeight', ArgumentType.MATRIX, t1.deepCopy()),
                     MatrixOperationType.DOT_PRODUCT,
                     new OperationArgument('hiddenError', ArgumentType.MATRIX, hiddenErrorCopy.deepCopy()),
-                    new OperationArgument('transposeOfWeight_DOT_hiddenError', ArgumentType.MATRIX, hiddenError.deepCopy())
+                    new OperationArgument('transposeOfWeight_DOT_hiddenError', ArgumentType.MATRIX, hiddenError.deepCopy()),
+                    "Calculating DOT Product : Matrix DOT Product Between Transpose Of Current Weight And Error"
                 )
             );
 
@@ -329,7 +345,8 @@ export class NeuralNet{
                     new OperationArgument('deactivation', ArgumentType.FUNCTION, this.activationFunction.deactivate.toString()),
                     MatrixOperationType.ELEMENT_WISE_FUNCTION,
                     new OperationArgument('layerOutput', ArgumentType.MATRIX, layerOutputs[i].deepCopy()),
-                    new OperationArgument('gradient', ArgumentType.MATRIX, hiddenGradient.deepCopy())
+                    new OperationArgument('gradient', ArgumentType.MATRIX, hiddenGradient.deepCopy()),
+                    "Calculating Gradient Step 1 : Deactivation Function To Each Element of Matrix (Current Output Layer)"
                 )
             );
 
@@ -340,7 +357,8 @@ export class NeuralNet{
                     new OperationArgument('hiddenGradient', ArgumentType.MATRIX, hiddenGradientAfterDeactivateCopy.deepCopy()),
                     MatrixOperationType.ELEMENT_WISE_MULTIPLICATION,
                     new OperationArgument('hiddenError', ArgumentType.MATRIX, hiddenError.deepCopy()),
-                    new OperationArgument('gradientAfterError', ArgumentType.MATRIX, hiddenGradientAfterMultiplyingWithErrorCopy)
+                    new OperationArgument('gradientAfterError', ArgumentType.MATRIX, hiddenGradientAfterMultiplyingWithErrorCopy),
+                    "Calculating Gradient Step 2 : Matrix Element Wise Multiplication Between Result Of Step 1 And Error"
                 )
             );
 
@@ -349,9 +367,10 @@ export class NeuralNet{
             backpropSteps.push(
                 new BinaryOperation(
                     new OperationArgument('gradientAfterError', ArgumentType.MATRIX, hiddenGradientAfterMultiplyingWithErrorCopy),
-                    MatrixOperationType.ELEMENT_WISE_MULTIPLICATION,
+                    MatrixOperationType.SCALAR_MULTIPLICATION,
                     new OperationArgument('learningRate', ArgumentType.SCALAR, learningRate),
-                    new OperationArgument('gradientAfterLearningRate', ArgumentType.MATRIX, hiddenGradient.deepCopy())
+                    new OperationArgument('gradientAfterLearningRate', ArgumentType.MATRIX, hiddenGradient.deepCopy()),
+                    "Calculating Gradient Step 3 (Final Step) : Matrix Scalar Multiplication Between Result of Step 2 And Learning Rate"
                 )
             );
 
@@ -360,7 +379,8 @@ export class NeuralNet{
                 new UnaryOperation(
                     new OperationArgument('layerOutput', ArgumentType.MATRIX, layerOutputs[i - 1].deepCopy()),
                     MatrixOperationType.TRANSPOSE,
-                    new OperationArgument('transposeOfLayerOutput', ArgumentType.MATRIX, transposeOfPreviousLayer.deepCopy())
+                    new OperationArgument('transposeOfLayerOutput', ArgumentType.MATRIX, transposeOfPreviousLayer.deepCopy()),
+                    "Calculating Transpose Of Last Hidden Layer : Matrix Transpose Of Output Of Last Hidden Layer"
                 )
             );
 
@@ -370,7 +390,8 @@ export class NeuralNet{
                     new OperationArgument('hiddenGradient', ArgumentType.MATRIX, hiddenGradient.deepCopy()),
                     MatrixOperationType.DOT_PRODUCT,
                     new OperationArgument('transposeOfLayerOutput', ArgumentType.MATRIX, transposeOfPreviousLayer.deepCopy()),
-                    new OperationArgument('delta', ArgumentType.MATRIX, deltaOfPreviousLayer.deepCopy())
+                    new OperationArgument('delta', ArgumentType.MATRIX, deltaOfPreviousLayer.deepCopy()),
+                    "Calculating Delta : Matrix Dot Product Between Gradient And Transpose Of Last Hidden Layer"
                 )
             );
 
@@ -383,7 +404,8 @@ export class NeuralNet{
                     new OperationArgument('previousWeight', ArgumentType.MATRIX, previousWeight),
                     MatrixOperationType.ELEMENT_WISE_ADDITION,
                     new OperationArgument('delta', ArgumentType.MATRIX, deltaOfPreviousLayer.deepCopy()),
-                    new OperationArgument('newWeight', ArgumentType.MATRIX, this.weights[i - 1].deepCopy())
+                    new OperationArgument('newWeight', ArgumentType.MATRIX, this.weights[i - 1].deepCopy()),
+                    "Calculating New Weight : Matrix Element Wise Addition Between Current Weight And Delta"
                 )
             );
 
@@ -393,7 +415,8 @@ export class NeuralNet{
                     new OperationArgument('previousBias', ArgumentType.MATRIX, previousBias),
                     MatrixOperationType.ELEMENT_WISE_ADDITION,
                     new OperationArgument('hiddenGradient', ArgumentType.MATRIX, hiddenGradient.deepCopy()),
-                    new OperationArgument('newBias', ArgumentType.MATRIX, this.bias[i - 1].deepCopy())
+                    new OperationArgument('newBias', ArgumentType.MATRIX, this.bias[i - 1].deepCopy()),
+                    "Calculating New Bias : Matrix Element Wise Addition Between Current Bias And Gradient"
                 )
             );
             backpropagation.push(backpropSteps);

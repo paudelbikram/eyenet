@@ -637,7 +637,8 @@ let createMatrixDataView = (matrix) => {
 
 let createStepView = (step) => {
   if (step instanceof sajilonet.UnaryOperation) {
-    return `<div class="row align-items-center d-flex flex-row flex-nowrap">
+    return `<div class="row">${step.description}</div>
+            <div class="row align-items-center d-flex flex-row flex-nowrap">
             <div class="col">{${step.operationType.name}}</div>
             <div class="col">
               ${createArgumentDataView(step.argument)}
@@ -648,7 +649,8 @@ let createStepView = (step) => {
             </div>
           </div>`;
   } else if (step instanceof sajilonet.BinaryOperation) {
-    return `<div class="row align-items-center d-flex flex-row flex-nowrap">
+    return `<div class="row">${step.description}</div>
+            <div class="row align-items-center d-flex flex-row flex-nowrap">
             <div class="col">
               ${createArgumentDataView(step.leftOperationArgument)}
             </div>
@@ -671,7 +673,8 @@ let populateStepDetails = (steps) => {
   let detailsDocument = document.getElementById('trainingStepDetails');
   let detailsHtml = [];
   for(let i = 0; i < steps.length; i++) {
-    detailsHtml.push(`<li class="list-group-item d-flex flex-row flex-nowrap">${createStepView(steps[i])}</li>`);
+    // d-flex flex-row flex-nowrap
+    detailsHtml.push(`<li class="list-group-item">${createStepView(steps[i])}</li>`);
   }
   detailsDocument.innerHTML = `
                               <ol class="list-group list-group-numbered list-group-flush">

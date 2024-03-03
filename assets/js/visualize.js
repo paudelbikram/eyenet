@@ -1,6 +1,6 @@
 'user strict';
 
-const dx = 200;
+const dx = 250;
 const dy = 90;
 const r = 25;
 
@@ -61,16 +61,17 @@ let angleBetweenTwoPoint = (x1, y1, x2, y2) => {
 }
 
 let getWeightPosition = (a, b, id) => {
+    let midPoint = (a + b)/2;
     // id will be in the form nn-nn;
     let splitrray = id.split('-');
     let numberToDivide = splitrray[1];
     const posDeterminer = numberToDivide % 3;
     if (posDeterminer == 0){
-        return (a + (a + b)/2)/2;
+        return ((a + midPoint)/2 + midPoint)/2;
     }else if(posDeterminer == 1){
-        return (a + b)/2;
+        return midPoint;
     }else{
-        return ((a + b)/2 + b)/2;
+        return ((midPoint + b)/2 + midPoint)/2;
     }
 }
 
@@ -103,7 +104,7 @@ let createNeuralNet = (neuralnet) => {
         }
     }
 
-    svg.attr("width", nodeConfig.length * 220).attr("height", maxNodeInLayer * 110);
+    svg.attr("width", nodeConfig.length * 250).attr("height", maxNodeInLayer * 110);
 
     // Add lines from one layer to next
     svg.selectAll("line")

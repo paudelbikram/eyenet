@@ -16,28 +16,9 @@
 </nav>
 
 <div class="container mt-5 p-1">
+  <br/>
   <div class="row justify-content-center">
-    <div class="col-auto">
-      <div class="input-group flex-nowrap">
-        <span class="input-group-text" id="addon-wrapping">Try provided datasets</span>
-        <button type="button" class="btn btn-sm btn-link" data-toggle="tooltip" 
-        data-placement="top" 
-        title="Auto fill all necessary inputs for XOR sample dataset">XOR</button>
-        <button type="button" class="btn btn-sm btn-link"
-        data-toggle="tooltip" 
-        data-placement="top" 
-        title="Auto fill all necessary inputs for Iris flower sample dataset"
-        >Iris flower</button>
-        <button type="button" class="btn btn-sm btn-link"
-        data-toggle="tooltip" 
-        data-placement="top" 
-        title="Auto fill all necessary inputs for Handwriting sample dataset"
-        >Handwriting</button>
-        <a href="#provideddataset" class="btn btn-sm btn-link align-text-bottom">
-          <span class="align-text-bottom">Learn more</span>
-        </a>
-      </div>
-    </div> 
+    <p>Please try out provided examples <a href="#provideddataset" ><span>here</span></a></p>
   </div>
 
   <div class="bg-light p-3 rounded">
@@ -268,18 +249,26 @@
     <hr id="provideddataset"/>
     <div>
       <h4>Sample Dataset</h4>
-      <p class="lead">As a demonstrations, three data sets has been provided. Clicking each of which will auto fill all necessary 
-        inputs so that you can easily create neural network, train it and test it. These three datasets are very 
-        different from each other and also serve as evidence that our neural net works with various datasets. 
+      <p class="lead">As a demonstrations, three data sets has been provided. You can find each of them below which 
+        also helps you fill all necessary inputs so that you can easily create neural network, train it and test it. 
+        These three datasets are very different from each other and also serve as evidence that our neural net works with various datasets. 
       </p>
-      <h6>XOR</h6>
+      <hr/>
+      <h5>XOR</h5>
       <p class="lead">This dataset actually holds result for Mathematical XOR operations. You don't really need neural network to calculate 
         value for xor function. We included here as a sample dataset because it is very simple and easy to understand. XOR dataset is nothing 
         but a simple json data below that we are using for training and testing. <br />
-        <code>[ {"X": [ 0, 0 ], "Y":[0]}, {"X": [ 1, 0 ], "Y":[1]}, {"X": [0, 1 ], "Y":[1]}, {"X": [ 1, 1 ], "Y":[0]} ]</code>
+        <code>[ {"X": [ 0, 0 ], "Y":[0]}, {"X": [ 1, 0 ], "Y":[1]}, {"X": [0, 1 ], "Y":[1]}, {"X": [ 1, 1 ], "Y":[0]} ]</code> <br/>
+        Full Input Details: <br/>
+        <b>Layers</b> : [2,5,3,1]<br/>
+        <b>Activation Function</b> : Sigmoid<br/>
+        <b>Epoch</b> : 300000<br/>
+        <b>Learning Rate</b> : 0.01<br/>
+        <b>Training Data</b> : <a href="./sajilonet/spec/data/xor/train.json">XOR training data</a><br/>
+        <b>Testing Data</b> : <a href="./sajilonet/spec/data/xor/test.json">XOR testing data</a> <br/>
       </p>
-    
-      <h6>Iris flower</h6>
+      <hr/>
+      <h5>Iris flower</h5>
       <p class="lead">This dataset was borrowed from <a href="https://archive.ics.uci.edu/ml/datasets/iris">here</a>. It is that same classic Iris
         flower dataset that you find every other neural network 
         tutorial and documentation. A single data for this dataset looks like this. <br />
@@ -291,12 +280,16 @@
         Iris-setosa is normalized to [1, 0, 0].  <br />
         Iris-versicolor is normalized to [0, 1, 0]. <br />
         Iris-virginica is normalized to [0, 0, 1]. <br />
-        You can also download complete dataset that we have used for training and testing here for Iris flower. <br/>
-        <a href="./sajilonet/test/data/iris/train.json">Iris flower training data</a> <br />
-        <a href="./sajilonet/test/data/iris/test.json">Iris flower testing data</a> <br />
-        </p> 
-    
-      <h6>Handwriting</h6>
+        Full Input Details: <br/>
+        <b>Layers</b> : [4,10,5,3]<br/>
+        <b>Activation Function</b> : Sigmoid<br/>
+        <b>Epoch</b> : 100000<br/>
+        <b>Learning Rate</b> : 0.01<br/>
+        <b>Training Data</b> : <a href="./sajilonet/test/data/iris/train.json">Iris flower training data</a><br/>
+        <b>Testing Data</b> : <a href="./sajilonet/spec/data/iris/test.json">Iris flower testing data</a>  <br/>
+      </p> 
+      <hr/>
+      <h5>Handwriting</h5>
       <p class="lead">This is our largest and most complicated sample dataset. This was originally borrowed from 
         <a href="https://pjreddie.com/projects/mnist-in-csv/">here</a>. A single data for this dataset looks like this. <br />
         <code>{"Y":[0,1,0,0,0,0,0,0,0,0],"X":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.14901960784313725,0.996078431372549,0.42745098039215684,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.3411764705882353,0.9882352941176471,0.3215686274509804,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.5294117647058824,0.9450980392156862,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.17647058823529413,0.9568627450980393,0.5882352941176471,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.32941176470588235,0.996078431372549,0.24705882352941178,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.792156862745098,0.8745098039215686,0.043137254901960784,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.12549019607843137,0.996078431372549,0.8470588235294118,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.37254901960784315,0.996078431372549,0.7647058823529411,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.5490196078431373,0.996078431372549,0.30196078431372547,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.2235294117647059,0.9294117647058824,0.803921568627451,0.03137254901960784,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.48627450980392156,1,0.6470588235294118,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.6705882352941176,0.996078431372549,0.3176470588235294,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.09411764705882353,0.9098039215686274,0.8431372549019608,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.47058823529411764,0.996078431372549,0.6235294117647059,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.592156862745098,0.996078431372549,0.5568627450980392,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.8941176470588236,0.996078431372549,0.25882352941176473,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.23921568627450981,0.984313725490196,0.996078431372549,0.25882352941176473,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.5529411764705883,0.996078431372549,0.803921568627451,0.011764705882352941,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0392156862745098,0.8431372549019608,0.996078431372549,0.4745098039215686,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0196078431372549,0.7764705882352941,0.6901960784313725,0.0392156862745098,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}, 
@@ -306,13 +299,16 @@
         0 is normalized to [1,0,0,0,0,0,0,0,0,0]. <br />
         1 is normalized to [0,1,0,0,0,0,0,0,0,0]. <br />
         2 is normalized to [0,0,1,0,0,0,0,0,0,0] and so on.<br />
-        
         Here X holds the pixel value for 28 x 28 pixels representation of the handwritten image. Original dataset had pixel values for 
-        X ranging from 0 to 255 which has been normalized by basically dividing them by 255. 
-        You can also download complete dataset that we have used for training and testing here for Handwriting. <br/>
-        <a href="./sajilonet/test/data/handwriting/train.json">Handwriting training data</a> <br />
-        <a href="./sajilonet/test/data/handwriting/test.json">Handwriting testing data</a> <br />
-        </p> 
+        X ranging from 0 to 255 which has been normalized by basically dividing them by 255.<br/>
+        Full Input Details: <br/>
+        <b>Layers</b> : [784, 1000, 100, 10]<br/>
+        <b>Activation Function</b> : Sigmoid<br/>
+        <b>Epoch</b> : 5000 (Please decrease this number if it is taking too long to train)<br/>
+        <b>Learning Rate</b> : 0.01 (Please increase this number if it is taking too long to train)<br/>
+        <b>Training Data</b> : <a href="./sajilonet/spec/data/handwriting/iter-2/train.json">Handwriting training data</a><br/>
+        <b>Testing Data</b> : <a href="./sajilonet/spec/data/handwriting/iter-2/test.json">Handwriting testing data</a><br/>
+      </p> 
     </div>
     <div>
   </div>
