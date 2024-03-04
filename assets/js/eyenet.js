@@ -356,15 +356,15 @@ let getNeuralNetLayers = (neuralnet) => {
   let pathConfig = [];
   let maxNodeInALayer = 0;
   for(let i = 0; i < neuralnet.weights.length; i++){
-      cols = neuralnet.weights[i].cols
+      let cols = neuralnet.weights[i].cols
       if(cols > maxNodeInALayer){
           maxNodeInALayer = cols;
       }
   }
   let middleNodeInLongestLayer = maxNodeInALayer/2;
   for(let i = 0; i < neuralnet.weights.length; i++){
-      rows = neuralnet.weights[i].rows;
-      cols = neuralnet.weights[i].cols
+      let rows = neuralnet.weights[i].rows;
+      let cols = neuralnet.weights[i].cols
       let middleNodeInK = rows/2;
       let middleNodeInJ = cols/2;
       nodeConfig.push(cols);
