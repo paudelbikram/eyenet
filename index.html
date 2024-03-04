@@ -208,11 +208,11 @@
       <div class="row">
         <div class="col overflow-scroll">
           <h5>Training Data Visualization</h5>
-          <select class="form-select border border-secondary mb-3" aria-label="Select an activation function" id="visualEpoch"
+          <select class="form-select border border-secondary mb-3" aria-label="Select an Epoch for visialization" id="visualEpoch"
           onchange="visualEpochChange(value)">
             <option value="empty" selected>Select an epoch</option>
           </select>
-          <select class="form-select border border-secondary mb-3" aria-label="Select an activation function" id="visualTrainingData"
+          <select class="form-select border border-secondary mb-3" aria-label="Select a training data for visualization" id="visualTrainingData"
           onchange="visualTraningDataChange(value)">
             <option value="empty" selected>Select a training data</option>
           </select>
@@ -227,22 +227,28 @@
             <div class="card card-body overflow-scroll" id="trainingStepDetails">
             </div>
           </div>
-
-
         </div>
-        <div class="col">
+        <div class="col overflow-scroll">
           <h5>Testing Data Visualization</h5>
 
-          <select class="form-select border border-secondary mb-3" aria-label="Select an activation function" id="visualTestingData"
-          onchange="afSelection(value)">
+          <select class="form-select border border-secondary mb-3" aria-label="Select a testing data for visualization" id="visualTestingData"
+          onchange="visualTestingDataChange(value)">
             <option value="empty" selected>Select a testing data</option>
           </select>
           <p>Steps: <span id="testingStepLink"></span></p>
+
+          <p>
+            <button type="button" class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#testingStepDetailsCollapsable" 
+            aria-expanded="false" aria-controls="testingStepDetailsCollapsable">Steps Details</button>
+          </p>
+          <div class="collapse" id="testingStepDetailsCollapsable">
+            <div class="card card-body overflow-scroll" id="testingStepDetails">
+            </div>
+          </div>
         </div>
       </div>
     </div>
     </div>
-
     <div style="overflow:scroll; height:900px; width:100%;"  >
       <svg id="nnVisualization" xmlns="http://www.w3.org/2000/svg"></svg>
     </div>
@@ -285,7 +291,7 @@
         <b>Activation Function</b> : Sigmoid<br/>
         <b>Epoch</b> : 100000<br/>
         <b>Learning Rate</b> : 0.01<br/>
-        <b>Training Data</b> : <a href="./sajilonet/test/data/iris/train.json">Iris flower training data</a><br/>
+        <b>Training Data</b> : <a href="./sajilonet/spec/data/iris/train.json">Iris flower training data</a><br/>
         <b>Testing Data</b> : <a href="./sajilonet/spec/data/iris/test.json">Iris flower testing data</a>  <br/>
       </p> 
       <hr/>
@@ -323,6 +329,5 @@
     <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./assets/js/eyenet.js"></script>
     <script src="./assets/js/d3.v7.min.js"></script>
-    <script src="./assets/js/visualize.js"></script>
   </body>
 </html>
