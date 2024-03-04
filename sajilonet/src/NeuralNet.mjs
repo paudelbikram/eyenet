@@ -360,7 +360,7 @@ export class NeuralNet{
                     MatrixOperationType.ELEMENT_WISE_MULTIPLICATION,
                     new OperationArgument('hiddenError', ArgumentType.MATRIX, hiddenError.deepCopy()),
                     new OperationArgument('gradientAfterError', ArgumentType.MATRIX, hiddenGradientAfterMultiplyingWithErrorCopy),
-                    "Calculating Gradient Step 2 : Matrix Element Wise Multiplication Between Result Of Step 1 And Error"
+                    "Calculating Gradient Step 2 : Matrix Element Wise Multiplication Between Result Of Previous Steps (3 & 2)"
                 )
             );
 
@@ -372,7 +372,7 @@ export class NeuralNet{
                     MatrixOperationType.SCALAR_MULTIPLICATION,
                     new OperationArgument('learningRate', ArgumentType.SCALAR, learningRate),
                     new OperationArgument('gradientAfterLearningRate', ArgumentType.MATRIX, hiddenGradient.deepCopy()),
-                    "Calculating Gradient Step 3 (Final Step) : Matrix Scalar Multiplication Between Result of Step 2 And Learning Rate"
+                    "Calculating Gradient Step 3 (Final Step) : Matrix Scalar Multiplication Between Result of Step 4 And Learning Rate"
                 )
             );
 
