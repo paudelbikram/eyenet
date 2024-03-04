@@ -60,11 +60,12 @@ export class NeuralNet{
         let layer = inputs;
         for (let i = 0; i < this.weights.length; i++) {
           // dot product with weight
+          let feedforwardSteps = [];
           let initialLayer = layer.deepCopy();
           layer = Matrix.dotProduct(this.weights[i], layer);
           let layerAfterWeight = layer.deepCopy();
           if (collectStat) {
-            predictionStat.push(
+            feedforwardSteps.push(
                 new BinaryOperation(
                     new OperationArgument('weight', ArgumentType.MATRIX, this.weights[i].deepCopy()),
                     MatrixOperationType.DOT_PRODUCT,
@@ -78,7 +79,7 @@ export class NeuralNet{
           layer.add(this.bias[i]);
           let layerAfterBias = layer.deepCopy();
           if (collectStat) {
-            predictionStat.push(
+            feedforwardSteps.push(
                 new BinaryOperation(
                     new OperationArgument('weightedLayer', ArgumentType.MATRIX, layerAfterWeight),
                     MatrixOperationType.ELEMENT_WISE_ADDITION,
@@ -91,7 +92,7 @@ export class NeuralNet{
           // apply activation function
           layer.map(this.activationFunction.activate);
           if (collectStat){
-            predictionStat.push(
+            feedforwardSteps.push(
                 new BinaryOperation(
                     new OperationArgument('activation', ArgumentType.FUNCTION, this.activationFunction.activate.toString()),
                     MatrixOperationType.ELEMENT_WISE_FUNCTION,
@@ -101,6 +102,7 @@ export class NeuralNet{
                 )
               );
           }
+          predictionStat.push(feedforwardSteps);
         }
         // todo just return matrix here instead. 
         if (collectStat){
