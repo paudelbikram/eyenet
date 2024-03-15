@@ -17,12 +17,32 @@
 
 <div class="container mt-5 p-1">
   <br/>
-  <div class="row justify-content-center">
-    <p>Please try out provided examples <a href="#provideddataset" ><span>here</span></a></p>
+  <div class="justify-content-center">
+    <p>
+      Please try out provided examples. These will train and test neural net with respective data. 
+      You can learn more about these examples <a href="#provideddataset" ><span>here</span></a>
+    </p>
+    <div class="container">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="xor-data" value="option1" onclick="xorDataSelected()">
+        <label class="form-check-label" for="xor-data">XOR</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="iris-data" value="option2" onclick="irisDataSelected()">
+        <label class="form-check-label" for="iris-data">Iris Flower</label>
+      </div>
+    </div>
+    
   </div>
 
+  <hr/>
+  <p>
+    <button type="button" class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#customNet" 
+    aria-expanded="false" aria-controls="customNet">Customize Neural Net Data</button>
+  </p>
+
   <div class="bg-light p-3 rounded">
-    <div class="row">
+    <div class="row collapse" id="customNet">
       <div class="col p-2 border border-secondary">
         <h6>Create Neural Network</h6>
         <form  novalidate onsubmit="createButtonPressed(event)">
@@ -206,8 +226,20 @@
     <div class="row mb-3">
       <h4>Visualization</h4>
       <div class="row">
-        <div class="col overflow-scroll">
-          <h5>Training Data Visualization</h5>
+        <div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="vis-option" id="train-data-radio" value="train" onclick="trainVisClicked()">
+            <label class="form-check-label" for="train-data">Train</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="vis-option" id="test-data-radio" value="test" onclick="testVisClicked()">
+            <label class="form-check-label" for="test-data">Test</label>
+          </div>
+        </div>
+        <hr/>
+        
+        <div class="col overflow-scroll" id="train-vis">
+          
           <select class="form-select border border-secondary mb-3" aria-label="Select an Epoch for visialization" id="visualEpoch"
           onchange="visualEpochChange(value)">
             <option value="empty" selected>Select an epoch</option>
@@ -228,9 +260,7 @@
             </div>
           </div>
         </div>
-        <div class="col overflow-scroll">
-          <h5>Testing Data Visualization</h5>
-
+        <div class="col overflow-scroll" id="test-vis">
           <select class="form-select border border-secondary mb-3" aria-label="Select a testing data for visualization" id="visualTestingData"
           onchange="visualTestingDataChange(value)">
             <option value="empty" selected>Select a testing data</option>
@@ -249,7 +279,7 @@
       </div>
     </div>
     </div>
-    <div style="overflow:scroll; height:900px; width:100%;"  >
+    <div style="overflow:scroll; height:900px; width:100%;">
       <svg id="nnVisualization" xmlns="http://www.w3.org/2000/svg"></svg>
     </div>
     <hr id="provideddataset"/>
