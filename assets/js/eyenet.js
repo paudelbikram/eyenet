@@ -1133,6 +1133,11 @@ let testVisClicked = () => {
 }
 
 let xorDataSelected = async() => {
+  let dataSelectionInprogress = document.getElementById('data-selection-inprogress');
+  let dataSelectionCompleted = document.getElementById('data-selection-completed');
+  hideElement(dataSelectionInprogress);
+  hideElement(dataSelectionCompleted);
+  showElement(dataSelectionInprogress);
   document.getElementById("layers").value = "2,5,3,1";
   document.getElementById('af').value = "sigmoid";
   await createButtonPressed();
@@ -1142,9 +1147,16 @@ let xorDataSelected = async() => {
   await trainButtonPressed();
   document.getElementById('testingdata').value = `[ {"X": [ 0, 0 ], "Y":[0]}, {"X": [ 1, 0 ], "Y":[1]}, {"X": [0, 1 ], "Y":[1]}, {"X": [ 1, 1 ], "Y":[0]} ]`;
   await testButtonPressed();
+  hideElement(dataSelectionInprogress);
+  showElement(dataSelectionCompleted);
 }
 
 let irisDataSelected = async() => {
+  let dataSelectionInprogress = document.getElementById('data-selection-inprogress');
+  let dataSelectionCompleted = document.getElementById('data-selection-completed');
+  hideElement(dataSelectionInprogress);
+  hideElement(dataSelectionCompleted);
+  showElement(dataSelectionInprogress);
   document.getElementById("layers").value = "4,10,5,3";
   document.getElementById('af').value = "sigmoid";
   await createButtonPressed();
@@ -1308,4 +1320,6 @@ let irisDataSelected = async() => {
     {"X": [5.2,3.5,1.5,0.2],"Y":[1,0,0]}  
 ]`;
   await testButtonPressed();
+  hideElement(dataSelectionInprogress);
+  showElement(dataSelectionCompleted);
 }
